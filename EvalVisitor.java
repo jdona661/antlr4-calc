@@ -6,12 +6,17 @@
  * We make no guarantees that this code is fit for any purpose. 
  * Visit http://www.pragmaticprogrammer.com/titles/tpantlr2 for more book information.
 ***/
+
+import org.antlr.v4.runtime.tree.ParseTree;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class EvalVisitor extends CalcBaseVisitor<Integer> {
     /** "memory" for our calculator; variable/value pairs go here */
     Map<String, Integer> memory = new HashMap<String, Integer>();
+    Map<String, CalcParser.ExprContext> functions = new HashMap<String, CalcParser.ExprContext>();
+
 
 
 
@@ -22,11 +27,19 @@ public class EvalVisitor extends CalcBaseVisitor<Integer> {
         int value = visit(ctx.expr());   // compute value of expression on right
         memory.put(id, value);           // store it in our memory
         return value;
+
     }
 
     public Integer visitClear(CalcParser.ClearContext ctx) {
         memory = new HashMap<String, Integer>();
         return 0; 
+    }
+
+    @Override
+    public Integer visitFun(CalcParser.FunContext ctx) {
+        String id = ctx.ID().getText();
+        functions.put(id, ctx.expr());
+        return 0;
     }
 
     /** expr NEWLINE */
@@ -35,6 +48,17 @@ public class EvalVisitor extends CalcBaseVisitor<Integer> {
         Integer value = visit(ctx.expr()); // evaluate the expr child
         System.out.println(value);         // print the result
         return 0;                          // return dummy value
+    }
+
+    /** Call */
+    @Override
+    public Integer visitCall(CalcParser.CallContext ctx){
+        String id = ctx.ID().getText();
+        ParseTree body = functions.get(id);     //lookup function expression in function table and evaluate it
+        if (body == null){
+            return 0;
+        }
+        return visit(body);
     }
 
     /** INT */
