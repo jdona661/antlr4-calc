@@ -1,0 +1,12 @@
+a = 8
+b = 5
+a = f
+a + b
+
+//comment
+
+f -> (4+5) * x
+
+a + f(a)
+
+//comment

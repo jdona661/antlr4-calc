@@ -41,6 +41,18 @@ public interface CalcListener extends ParseTreeListener {
 	 */
 	void exitAssign(CalcParser.AssignContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code clear}
+	 * labeled alternative in {@link CalcParser#stat}.
+	 * @param ctx the parse tree
+	 */
+	void enterClear(CalcParser.ClearContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code clear}
+	 * labeled alternative in {@link CalcParser#stat}.
+	 * @param ctx the parse tree
+	 */
+	void exitClear(CalcParser.ClearContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code blank}
 	 * labeled alternative in {@link CalcParser#stat}.
 	 * @param ctx the parse tree
@@ -64,6 +76,18 @@ public interface CalcListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitId(CalcParser.IdContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code call}
+	 * labeled alternative in {@link CalcParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterCall(CalcParser.CallContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code call}
+	 * labeled alternative in {@link CalcParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitCall(CalcParser.CallContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code int}
 	 * labeled alternative in {@link CalcParser#expr}.

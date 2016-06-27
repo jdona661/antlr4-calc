@@ -16,6 +16,12 @@ public interface CalcVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitProg(CalcParser.ProgContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link CalcParser#fun}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFun(CalcParser.FunContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code printExpr}
 	 * labeled alternative in {@link CalcParser#stat}.
 	 * @param ctx the parse tree
@@ -50,6 +56,13 @@ public interface CalcVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitId(CalcParser.IdContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code call}
+	 * labeled alternative in {@link CalcParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCall(CalcParser.CallContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code int}
 	 * labeled alternative in {@link CalcParser#expr}.
